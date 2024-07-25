@@ -13,9 +13,17 @@ namespace DataExporter.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Policy> CreatePolicyAsync(Policy createPolicyDto)
+        public async Task<Policy> CreatePolicyAsync(Policy createPolicy)
         {
-            return await Task.FromResult(new Policy());
+            _dbContext.Policies.Add(createPolicy);
+            var result = await _dbContext.SaveChangesAsync();
+
+            if(result == 1)
+            {
+                return createPolicy;
+            }
+
+            return null;
         }
 
         public async Task<IList<Policy>> ReadPoliciesAsync()
