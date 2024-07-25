@@ -1,4 +1,10 @@
-using DataExporter.Services;
+using DataExporter.Application.AutoMapper;
+using DataExporter.Application.Implementations;
+using DataExporter.Application.Interfaces;
+using DataExporter.Domain.Repositories;
+using DataExporter.Infrastructure;
+using DataExporter.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataExporter
 {
@@ -8,20 +14,30 @@ namespace DataExporter
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
 
             builder.Services.AddControllers();
-            builder.Services.AddDbContext<ExporterDbContext>();
-            builder.Services.AddScoped<PolicyService>();
+
+            builder.Services.AddAutoMapper(typeof(AutoMapperProfilesConfig).Assembly);
+
+            builder.Services.AddDbContext<ExporterDbContext>(options => 
+                options.UseInMemoryDatabase("ExporterDb"));
+
+            builder.Services.AddScoped<IPolicyRepository, PolicyRepository>();
+            builder.Services.AddScoped<IPolicyService, PolicyService>();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ExporterDbContext>();
+                dbContext.Database.EnsureCreated();
+            }
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

@@ -1,5 +1,5 @@
-﻿using DataExporter.Dtos;
-using DataExporter.Services;
+﻿using DataExporter.Application.Dtos;
+using DataExporter.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataExporter.Controllers
@@ -8,16 +8,18 @@ namespace DataExporter.Controllers
     [Route("[controller]")]
     public class PoliciesController : ControllerBase
     {
-        private PolicyService _policyService;
+        private IPolicyService _policyService;
+        private readonly ILogger<PoliciesController> _logger;
 
-        public PoliciesController(PolicyService policyService) 
-        { 
+        public PoliciesController(IPolicyService policyService, ILogger<PoliciesController> logger)
+        {
             _policyService = policyService;
+            _logger = logger;
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostPolicies([FromBody]CreatePolicyDto createPolicyDto)
-        {         
+        public async Task<IActionResult> PostPolicies([FromBody] CreatePolicyDto createPolicyDto)
+        {
             return Ok();
         }
 
@@ -29,14 +31,22 @@ namespace DataExporter.Controllers
         }
 
         [HttpGet("{policyId}")]
-        public async Task<IActionResult> GetPolicy(int id)
+        public async Task<IActionResult> GetPolicy(int policyId)
         {
-            return Ok(_policyService.ReadPolicyAsync(id));
+            try
+            {
+                return Ok(_policyService.ReadPolicyAsync(policyId));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("GetPolicy ", ex);
+                return BadRequest(ex.Message);
+            }
         }
 
 
         [HttpPost("export")]
-        public async Task<IActionResult> ExportData([FromQuery]DateTime startDate, [FromQuery] DateTime endDate)
+        public async Task<IActionResult> ExportData([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
             return Ok();
         }

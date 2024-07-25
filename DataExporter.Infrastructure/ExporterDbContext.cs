@@ -1,21 +1,15 @@
-﻿using DataExporter.Model;
+﻿using DataExporter.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-
-namespace DataExporter
+namespace DataExporter.Infrastructure
 {
     public class ExporterDbContext : DbContext
     {
-        public DbSet<Policy> Policies { get; set; }
-
         public ExporterDbContext(DbContextOptions<ExporterDbContext> options) : base(options)
-        { 
+        {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseInMemoryDatabase("ExporterDb");
-        }
+        public DbSet<Policy> Policies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
