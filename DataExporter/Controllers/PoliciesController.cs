@@ -35,11 +35,18 @@ namespace DataExporter.Controllers
         {
             try
             {
-                return Ok(_policyService.ReadPolicyAsync(policyId));
+                var policyDto = await _policyService.ReadPolicyAsync(policyId);
+
+                if (policyDto == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(policyDto);
             }
             catch (Exception ex)
             {
-                _logger.LogError("GetPolicy ", ex);
+                _logger.LogError(ex, "GetPolicy");
                 return BadRequest(ex.Message);
             }
         }
