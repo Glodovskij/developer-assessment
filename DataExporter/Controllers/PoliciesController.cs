@@ -20,7 +20,22 @@ namespace DataExporter.Controllers
         [HttpPost]
         public async Task<IActionResult> PostPolicies([FromBody] CreatePolicyDto createPolicyDto)
         {
-            return Ok();
+            try
+            {
+                var policyDto = await _policyService.CreatePolicyAsync(createPolicyDto);
+
+                if (policyDto == null)
+                {
+                    return BadRequest("New policy was not added");
+                }
+
+                return Ok(policyDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "PostPolicies");
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
