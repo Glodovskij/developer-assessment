@@ -1,4 +1,4 @@
-﻿namespace DataExporter.Model
+﻿namespace DataExporter.Domain.Entities
 {
     public class Note
     {

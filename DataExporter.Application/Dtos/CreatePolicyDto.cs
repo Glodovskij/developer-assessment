@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace DataExporter.Model
+﻿namespace DataExporter.Application.Dtos
 {
-    public class Policy
+    public class CreatePolicyDto
     {
-        public int Id { get; set; }
         public string PolicyNumber { get; set; }
         public decimal Premium { get; set; }
         public DateTime StartDate { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace DataExporter.Dtos
+﻿namespace DataExporter.Application.Dtos
 {
     public class ExportDto
     {
