@@ -23,11 +23,20 @@ namespace DataExporter.Controllers
             return Ok();
         }
 
-
         [HttpGet]
         public async Task<IActionResult> GetPolicies()
         {
-            return Ok();
+            try
+            {
+                var policiesDto = await _policyService.ReadPoliciesAsync();
+
+                return Ok(policiesDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "GetPolicies");
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{policyId}")]

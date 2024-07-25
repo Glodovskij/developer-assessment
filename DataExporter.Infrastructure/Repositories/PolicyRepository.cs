@@ -20,7 +20,7 @@ namespace DataExporter.Infrastructure.Repositories
 
         public async Task<IList<Policy>> ReadPoliciesAsync()
         {
-            return await Task.FromResult(new List<Policy>());
+            return await _dbContext.Policies.ToListAsync();
         }
 
         public async Task<Policy> ReadPolicyAsync(int id)
