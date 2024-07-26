@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "0eb22b01-6079-45e3-ad20-03cf8ae9fb01",
+		"name": "DataExporter requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5884532"
+	},
+	"item": [
+		{
+			"name": "GET Policies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7246/policies",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7246",
+					"path": [
+						"policies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPolicy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7246/policies/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7246",
+					"path": [
+						"policies",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPolicy NotFound case",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "POST Policy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"PolicyNumber\" : \"08667114-9FE7-406D-8B2A-2973FFB50DC5\",\r\n    \"Premium\" : 175,\r\n    \"StartDate\" : \"2024-07-24\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7246/policies",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7246",
+					"path": [
+						"policies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET export",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7246/policies/export?startDate=2024-3-10&endDate=2025-5-1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7246",
+					"path": [
+						"policies",
+						"export"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2024-3-10"
+						},
+						{
+							"key": "endDate",
+							"value": "2025-5-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET export NotFound case",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7246/policies/export?startDate=2025-3-10&endDate=2026-5-1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7246",
+					"path": [
+						"policies",
+						"export"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2025-3-10"
+						},
+						{
+							"key": "endDate",
+							"value": "2026-5-1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
