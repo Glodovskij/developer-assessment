@@ -11,6 +11,8 @@ namespace DataExporter.Application.AutoMapper
             CreateMap<CreatePolicyDto, Policy>().ReverseMap();
 
             CreateMap<ReadPolicyDto, Policy>().ReverseMap();
+
+            CreateMap<ReadNoteDto, Note>().ReverseMap();
         }
     }
 }
