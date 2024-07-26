@@ -13,6 +13,9 @@ namespace DataExporter.Application.AutoMapper
             CreateMap<ReadPolicyDto, Policy>().ReverseMap();
 
             CreateMap<ReadNoteDto, Note>().ReverseMap();
+
+            CreateMap<Policy, ExportDto>()
+            .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes.Select(n => n.Text).ToList()));
         }
     }
 }
