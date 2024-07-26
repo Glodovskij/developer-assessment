@@ -17,13 +17,13 @@ namespace DataExporter.Application.Implementations
             _mapper = mapper;
         }
 
-        public async Task<CreatePolicyDto> CreatePolicyAsync(CreatePolicyDto createPolicyDto)
+        public async Task<ReadPolicyDto> CreatePolicyAsync(CreatePolicyDto createPolicyDto)
         {
             var policy = _mapper.Map<Policy>(createPolicyDto);
 
             var result = await _policyRepository.CreatePolicyAsync(policy);
 
-            var resultPolicy = _mapper.Map<CreatePolicyDto>(result);
+            var resultPolicy = _mapper.Map<ReadPolicyDto>(result);
 
             return resultPolicy;
         }
