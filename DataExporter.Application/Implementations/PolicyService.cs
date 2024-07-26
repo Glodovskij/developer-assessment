@@ -28,6 +28,15 @@ namespace DataExporter.Application.Implementations
             return resultPolicy;
         }
 
+        public async Task<IList<ExportDto>> ExportPoliciesWithNotesByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            var result = await _policyRepository.ReadPoliciesWithNotesByDateRangeAsync(startDate, endDate);
+
+            var exportDto = _mapper.Map<List<ExportDto>>(result);
+
+            return exportDto;
+        }
+
         public async Task<IList<ReadPolicyDto>> ReadPoliciesAsync()
         {
             var result = await _policyRepository.ReadPoliciesAsync();

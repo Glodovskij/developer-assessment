@@ -7,5 +7,6 @@ namespace DataExporter.Application.Interfaces
         Task<CreatePolicyDto> CreatePolicyAsync(CreatePolicyDto createPolicyDto);
         Task<IList<ReadPolicyDto>> ReadPoliciesAsync();
         Task<ReadPolicyDto> ReadPolicyAsync(int id);
+        Task<IList<ExportDto>> ExportPoliciesWithNotesByDateRangeAsync(DateTime startDate, DateTime endDate);
     }
 }

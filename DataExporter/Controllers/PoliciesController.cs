@@ -76,10 +76,25 @@ namespace DataExporter.Controllers
         }
 
 
-        [HttpPost("export")]
+        [HttpGet("export")]
         public async Task<IActionResult> ExportData([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
-            return Ok();
+            try
+            {
+                var exportDto = await _policyService.ExportPoliciesWithNotesByDateRangeAsync(startDate, endDate);
+
+                if(exportDto == null || exportDto.Count == 0)
+                {
+                    return NotFound(); 
+                }
+
+                return Ok(exportDto);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "export");
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

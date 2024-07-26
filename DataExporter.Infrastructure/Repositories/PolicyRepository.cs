@@ -31,6 +31,14 @@ namespace DataExporter.Infrastructure.Repositories
             return await _dbContext.Policies.ToListAsync();
         }
 
+        public async Task<IList<Policy>> ReadPoliciesWithNotesByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            return await _dbContext.Policies
+                .Include(policy => policy.Notes)
+                .Where(p => p.StartDate >= startDate && p.StartDate <= endDate)
+                .ToListAsync();
+        }
+
         public async Task<Policy> ReadPolicyAsync(int id)
         {
             var policy = await _dbContext.Policies.FirstOrDefaultAsync(x => x.Id == id);

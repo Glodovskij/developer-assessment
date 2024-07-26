@@ -7,5 +7,6 @@ namespace DataExporter.Domain.Repositories
         Task<Policy> CreatePolicyAsync(Policy createPolicyDto);
         Task<IList<Policy>> ReadPoliciesAsync();
         Task<Policy> ReadPolicyAsync(int id);
+        Task<IList<Policy>> ReadPoliciesWithNotesByDateRangeAsync(DateTime startDate, DateTime endDate);
     }
 }
