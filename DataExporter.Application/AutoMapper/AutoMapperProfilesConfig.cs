@@ -8,11 +8,11 @@ namespace DataExporter.Application.AutoMapper
     {
         public AutoMapperProfilesConfig()
         {
-            CreateMap<CreatePolicyDto, Policy>().ReverseMap();
+            CreateMap<CreatePolicyDto, Policy>();
 
-            CreateMap<ReadPolicyDto, Policy>().ReverseMap();
+            CreateMap<Policy, ReadPolicyDto>();
 
-            CreateMap<ReadNoteDto, Note>().ReverseMap();
+            CreateMap<Note, ReadNoteDto>();
 
             CreateMap<Policy, ExportDto>()
             .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes.Select(n => n.Text).ToList()));
