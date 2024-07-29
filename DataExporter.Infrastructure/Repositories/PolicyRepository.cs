@@ -41,7 +41,7 @@ namespace DataExporter.Infrastructure.Repositories
 
         public async Task<Policy> ReadPolicyAsync(int id)
         {
-            var policy = await _dbContext.Policies.FirstOrDefaultAsync(x => x.Id == id);
+            var policy = await _dbContext.Policies.SingleOrDefaultAsync(x => x.Id == id);
 
             return policy;
         }
